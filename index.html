@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>A Secret Reveal... 💖</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     * {
       box-sizing: border-box;
@@ -12,8 +18,10 @@
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      font-family: 'Poppins', sans-serif;
+      /* Romantic gradient over aesthetic background wallpaper */
+      background: linear-gradient(rgba(15, 23, 42, 0.55), rgba(136, 19, 55, 0.65)), 
+                  url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat fixed;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -24,42 +32,53 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 40px 30px;
-      max-width: 400px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 28px;
+      padding: 45px 30px;
+      max-width: 420px;
       width: 100%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
       text-align: center;
-      transition: all 0.3s ease;
     }
 
     h1 {
-      color: #0284c7;
-      font-size: 24px;
-      line-height: 1.4;
+      font-family: 'Playfair Display', serif;
+      color: #881337;
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.35;
       margin-bottom: 15px;
     }
 
     .prompt-text {
-      color: #64748b;
-      font-size: 14px;
+      color: #9f1239;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       animation: pulse 1.5s infinite;
     }
 
     .initial-display {
-      font-size: 96px;
-      font-weight: bold;
+      font-family: 'Poppins', sans-serif;
+      font-size: 110px;
+      font-weight: 800;
       color: #e11d48;
-      margin: 20px 0;
+      text-shadow: 0 4px 25px rgba(225, 29, 72, 0.35);
+      margin: 15px 0;
       display: none;
-      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      min-height: 130px;
     }
 
     .sub-text {
-      color: #e11d48;
-      font-size: 18px;
-      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #be123c;
+      font-size: 20px;
+      font-weight: 600;
       display: none;
     }
 
@@ -69,32 +88,50 @@
     }
 
     @keyframes popIn {
-      0% { transform: scale(0); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+      0% { transform: scale(0.6); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
-<body onclick="revealInitial()">
+<body onclick="startLetterSpin()">
 
   <div class="card">
     <h1 id="headingText">The person with this initial has a crush on you... 💕</h1>
-    <p class="prompt-text" id="promptText">(Tap anywhere on the screen to reveal)</p>
+    <p class="prompt-text" id="promptText">(Tap anywhere to reveal)</p>
     
-    <div class="initial-display" id="initialResult">A</div>
+    <div class="initial-display" id="initialResult">?</div>
     <p class="sub-text" id="subText">It's definitely them! 🥰</p>
   </div>
 
   <script>
-    let isRevealed = false;
+    let isRunning = false;
+    const letters = "BCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    function revealInitial() {
-      if (isRevealed) return; // Prevents re-triggering once revealed
+    function startLetterSpin() {
+      if (isRunning) return; 
+      isRunning = true;
 
-      document.getElementById("promptText").style.display = "none";
-      document.getElementById("initialResult").style.display = "block";
-      document.getElementById("subText").style.display = "block";
-      
-      isRevealed = true;
+      const promptText = document.getElementById("promptText");
+      const initialDisplay = document.getElementById("initialResult");
+      const subText = document.getElementById("subText");
+
+      promptText.style.display = "none";
+      initialDisplay.style.display = "block";
+
+      // Cycle random letters every 70 milliseconds
+      const interval = setInterval(() => {
+        const randomChar = letters[Math.floor(Math.random() * letters.length)];
+        initialDisplay.innerText = randomChar;
+      }, 70);
+
+      // Stop after 5 seconds (5000ms) and land on "A"
+      setTimeout(() => {
+        clearInterval(interval);
+        initialDisplay.innerText = "A";
+        initialDisplay.style.animation = "popIn 0.5s ease-in-out";
+        subText.style.display = "block";
+      }, 5000);
     }
   </script>
 
