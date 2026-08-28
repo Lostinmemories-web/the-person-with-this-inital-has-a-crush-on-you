@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Secret Reveal... 💖</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      color: #0284c7;
+      font-size: 24px;
+      line-height: 1.4;
+      margin-bottom: 15px;
+    }
+
+    .prompt-text {
+      color: #64748b;
+      font-size: 14px;
+      animation: pulse 1.5s infinite;
+    }
+
+    .initial-display {
+      font-size: 96px;
+      font-weight: bold;
+      color: #e11d48;
+      margin: 20px 0;
+      display: none;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .sub-text {
+      color: #e11d48;
+      font-size: 18px;
+      font-weight: bold;
+      display: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body onclick="revealInitial()">
+
+  <div class="card">
+    <h1 id="headingText">The person with this initial has a crush on you... 💕</h1>
+    <p class="prompt-text" id="promptText">(Tap anywhere on the screen to reveal)</p>
+    
+    <div class="initial-display" id="initialResult">A</div>
+    <p class="sub-text" id="subText">It's definitely them! 🥰</p>
+  </div>
+
+  <script>
+    let isRevealed = false;
+
+    function revealInitial() {
+      if (isRevealed) return; // Prevents re-triggering once revealed
+
+      document.getElementById("promptText").style.display = "none";
+      document.getElementById("initialResult").style.display = "block";
+      document.getElementById("subText").style.display = "block";
+      
+      isRevealed = true;
+    }
+  </script>
+
+</body>
+</html>
